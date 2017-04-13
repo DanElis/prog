@@ -4,10 +4,6 @@
 
 #define MAX_VERTEX 5000
 #define INT_MAX 2147483647
-//#define max(a,b) ((a) > (b) ? (a) : (b))
-//#define min(a,b) ((a) < (b) ? (a) : (b))
-//#define edges(i,j,n) edges1((max((i),(j))),(min((i),(j))), (n))
-//#define edges1(i,j,n) edges[(((j)*(2*(n)-(j) + 3))/2+(i))]
 typedef struct {
     int parent;
     int rank;
@@ -43,15 +39,6 @@ int main (){
 
 	if (read_data (gr))
 		return 0;
-
-	/*char *visited = calloc((size_t) gr->n, sizeof(char));
-	dfs(gr, 0, visited);
-	for (int i = 0; i < gr->n; i++) {
-		if (!visited[i]){
-			printf("no spanning tree\n");
-			return 0;
-		}
-	}*/
 	Edge *min_tree = malloc(sizeof(Edge)*gr->n);
 	(kruskal(gr, min_tree));
 	
