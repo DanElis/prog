@@ -23,7 +23,7 @@ typedef struct Queue{
 	struct node_queue **head;
 }Queue;
 
-void fread_data (int *frequency, int *number);
+void fread_data (int *frequency, int *number, FILE *file);
 char build_tree (Queue *queue, Tree *tree, int *number, char **codes);
 void build_queue (int *frequencym , int *number, Queue *queue);
 void push (int element, int frequence, node_queue **head);
@@ -43,8 +43,12 @@ int main (){
 		printf("error\n");
 		return 1;
 	}
-
-	t = getchar();
+	FILE *file = fopen("in.txt", "r");
+	if (!file){
+		printf("error\n");
+		exit(1);
+	}
+	t = fgetc(file);
 	
 	if (t == 'd'){
 
@@ -55,7 +59,7 @@ int main (){
 		int *number = malloc(sizeof(int*));
 		*number = 256;
 
-		fread_data(frequency, number);
+		fread_data(frequency, number, file);
 
 		fprintf(stderr, "1\n" );
 
@@ -80,12 +84,8 @@ int main (){
 
 }
 
-void fread_data (int *frequency, int *number){
-	FILE *file = fopen("in.txt", "r");
-	if (!file){
-		printf("error\n");
-		exit(1);
-	}
+void fread_data (int *frequency, int *number, FILE *file ){
+	
 	char tmp; 	
 	while ((tmp = fgetc(file)) != EOF){
 		if (!frequency[tmp])
